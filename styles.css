@@ -404,6 +404,7 @@ section.tint { background: var(--paper-2); }
   color: var(--muted);
   white-space: nowrap;
 }
+.live.demo i { background: #d08a1c; }
 .live i { width: 7px; height: 7px; border-radius: 50%; background: var(--live); animation: pulse 2.4s infinite; }
 @keyframes pulse {
   0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--live) 55%, transparent); }

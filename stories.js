@@ -11,6 +11,18 @@
   const PAGE_SIZE = 60;
   const POST_COLUMNS = "id,user_id,title,content,genre,image_url,created_at";
 
+  // Local preview only: ?demo mixes in sample stories from demo/stories.json, which is
+  // git-ignored and built from the app's MockSeed.swift. Remembered for the tab; ?demo=0 turns it off.
+  const DEMO = (() => {
+    try {
+      const q = new URLSearchParams(location.search);
+      if (q.has("demo")) sessionStorage.setItem("storyds-demo", q.get("demo") === "0" ? "" : "1");
+      return sessionStorage.getItem("storyds-demo") === "1";
+    } catch (_) {
+      return false;
+    }
+  })();
+
   // MARK: - Data
 
   async function rest(path) {
@@ -34,6 +46,10 @@
         // Stories still show without author names
       }
     }
+    return decorate(posts, profiles);
+  }
+
+  function decorate(posts, profiles) {
     return posts
       .filter((p) => p.content && p.content.trim())
       .map((p) => ({
@@ -46,12 +62,39 @@
   }
 
   async function fetchLatest() {
-    return withAuthors(await rest(`posts?select=${POST_COLUMNS}&order=created_at.desc&limit=${PAGE_SIZE}`));
+    const demo = await demoStories();
+    let posts;
+    try {
+      posts = await withAuthors(await rest(`posts?select=${POST_COLUMNS}&order=created_at.desc&limit=${PAGE_SIZE}`));
+    } catch (err) {
+      if (!demo) throw err;
+      posts = [];
+    }
+    if (!demo) return posts;
+    return [...posts, ...demo].sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
   }
 
   async function fetchStory(id) {
+    const demo = await demoStories();
+    const fromDemo = demo && demo.find((s) => s.id === id);
+    if (fromDemo) return fromDemo;
     const rows = await rest(`posts?select=${POST_COLUMNS}&id=eq.${encodeURIComponent(id)}`);
     return (await withAuthors(rows))[0] || null;
+  }
+
+  let demoCache;
+  async function demoStories() {
+    if (!DEMO) return null;
+    if (demoCache === undefined) {
+      try {
+        const res = await fetch("demo/stories.json");
+        const data = res.ok ? await res.json() : null;
+        demoCache = data ? decorate(data.posts, Object.fromEntries(data.profiles.map((r) => [r.id, r]))) : null;
+      } catch (_) {
+        demoCache = null;
+      }
+    }
+    return demoCache;
   }
 
   // MARK: - Helpers
@@ -173,6 +216,12 @@
     const end = root.querySelector(".feed-end");
     let stories = [];
     let filter = new URLSearchParams(location.search).get("genre") || "All";
+
+    const live = document.querySelector(".live");
+    if (DEMO && live) {
+      live.classList.add("demo");
+      live.lastChild.textContent = "Demo stories mixed in";
+    }
 
     function visible() {
       if (filter === "All") return stories;

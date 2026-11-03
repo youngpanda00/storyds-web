@@ -21,7 +21,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 # Bump with styles.css / main.js changes so browsers don't pair new HTML with cached assets
-ASSET_VERSION = "5"
+ASSET_VERSION = "6"
 DEFAULT_SOURCE = ROOT.parent / "Storyds" / "Storyds" / "Features" / "Settings" / "LegalText.swift"
 
 PAGES = [

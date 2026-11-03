@@ -200,7 +200,7 @@ h1, h2, h3 {
 
 .layout {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(400px, 42%);
+  grid-template-columns: minmax(0, 1fr) clamp(360px, 32vw, 460px);
   align-items: start;
 }
 

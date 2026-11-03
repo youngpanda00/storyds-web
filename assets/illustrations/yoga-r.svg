@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220" fill="none" stroke="#000" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"><defs><filter id="r" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="3"/><feDisplacementMap in="SourceGraphic" scale="3.2"/></filter></defs><g filter="url(#r)">
+  <!-- joined hands -->
+  <path d="M71 36 C70 24 73 12 79 8 C80 7.5 81 7.5 82 8.5 C87 13 90 24 89 36"/>
+  <path d="M80 11 C80 20 80 28 80 36" stroke-width="2.6"/>
+  <!-- arms, outer -->
+  <path d="M71 36 C55 40 41 54 43 72 C45 88 54 98 60 106"/>
+  <path d="M89 36 C105 41 119 55 117 72 C115 88 106 98 100 106"/>
+  <!-- arms, inner -->
+  <path d="M76 40 C66 45 59 54 58.5 63"/>
+  <path d="M84 40 C94 45 101 54 101.5 63"/>
+  <!-- head -->
+  <path d="M80 50 C93 50 102 60 101 73 C100 85 91 92 80 92 C68 92 59 84 59 72 C59 60 68 50 81 51"/>
+  <!-- face -->
+  <path d="M68 71 C70 74 74 74 76 71" stroke-width="3"/>
+  <path d="M84 71 C86 74 90 74 92 71" stroke-width="3"/>
+  <path d="M75 80 C77.5 83.5 82.5 83.5 85 80" stroke-width="3"/>
+  <!-- shoulders and body -->
+  <path d="M60 106 C61 122 61 138 63 154"/>
+  <path d="M100 106 C100 122 99 138 98 152"/>
+  <!-- standing leg -->
+  <path d="M63 154 C63 172 64 189 66 203 C58 204 50 205 49 209 C49 212.5 60 212.5 82 211 C81 197 80 181 80 163"/>
+  <!-- bent leg, foot tucked against the standing leg -->
+  <path d="M98 152 C114 152 131 158 130 170 C129 181 110 184 82 183"/>
+  <path d="M80 163 C93 162 106 162 113 169 C106 172 94 172 82 172"/>
+</g></svg>

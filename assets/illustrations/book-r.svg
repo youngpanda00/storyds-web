@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 170" fill="none" stroke="#000" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><defs><filter id="r" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="7"/><feDisplacementMap in="SourceGraphic" scale="3.2"/></filter></defs><g filter="url(#r)">
+  <!-- cover -->
+  <path d="M19 66 C17 86 15 106 14 125 C48 119 80 125 100 141 C121 125 153 119 187 125 C185 106 183 86 181 66"/>
+  <!-- pages -->
+  <path d="M100 74 C79 59 47 55 23 63 C25 81 28 99 30 119 C53 112 81 116 100 130"/>
+  <path d="M100 74 C121 59 153 55 177 63 C175 81 172 99 170 119 C147 112 119 116 100 130"/>
+  <path d="M100 75 C101 93 100 112 100 129"/>
+  <!-- page edges -->
+  <path d="M27 124 C55 118 82 122 100 135 C118 122 146 118 174 124" stroke-width="2.5"/>
+  <!-- scribble -->
+  <path d="M46 101 C50 86 58 76 64 79 C70 82 60 100 54 104 C50 107 52 96 60 92 C68 88 76 90 74 98 C73 102 78 100 84 92" stroke-width="7"/>
+  <!-- pencil -->
+  <g transform="translate(118 104) rotate(-58)">
+    <path d="M0 0 L17 -8 L66 -8 C72 -8 75 -4 75 0 C75 4 72 8 66 8 L17 8 Z"/>
+    <path d="M17 -8 C15 -3 15 3 17 8"/>
+    <path d="M57 -8 C55 -3 55 3 57 8"/>
+    <path d="M0 0 L7 -3.3 C6 -1 6 1 7 3.3 Z" fill="#000"/>
+  </g>
+</g></svg>

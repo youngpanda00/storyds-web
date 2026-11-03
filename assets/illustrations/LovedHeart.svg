@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 170 160" fill="none" stroke="#000" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"><defs><filter id="r" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="4"/><feDisplacementMap in="SourceGraphic" scale="3.2"/></filter></defs><g filter="url(#r)">
+<path d="M85 138 C60 118 30 96 30 66 C30 46 44 34 60 34 C72 34 81 42 85 52 C89 42 98 34 110 34 C126 34 140 46 140 66 C140 96 110 120 82 136"/>
+<path d="M46 64 C46 55 52 49 60 48" stroke-width="3"/>
+<path d="M146 30 L156 20" stroke-width="3.2"/><path d="M152 44 L163 42" stroke-width="3.2"/><path d="M138 20 L140 9" stroke-width="3.2"/>
+<path d="M24 30 L15 21" stroke-width="3.2"/><path d="M17 46 L6 44" stroke-width="3.2"/>
+</g></svg>

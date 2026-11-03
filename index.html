@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Storyds — Short stories you can finish in one sitting</title>
-  <meta name="description" content="Storyds is an iPhone app for reading and writing short stories. Swipe through stories under 1,200 words, love the ones that stay with you, and publish your own.">
+  <meta name="description" content="Storyds is an iPhone app for reading and writing short stories. Read the latest stories right here, every one under 1,200 words.">
   <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#171719" media="(prefers-color-scheme: dark)">
   <meta property="og:title" content="Storyds">
@@ -15,12 +15,11 @@
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://sdwhmsjtntwxvchxbtth.supabase.co" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,400;1,500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
-<body>
-  <div class="progress" aria-hidden="true"></div>
-
+<body class="home">
   <header class="site-header">
     <div class="wrap">
       <a class="brand" href="./" aria-label="Storyds home">
@@ -37,83 +36,24 @@
     </div>
   </header>
 
-  <main>
-    <!-- Hero -->
-    <section class="hero">
-      <div class="wrap">
-        <div>
-          <p class="eyebrow">For iPhone</p>
-          <h1>Short stories you can finish <em>in one sitting.</em></h1>
-          <p class="lede">Swipe up for the next story. Every one is under 1,200 words, about six minutes, start to end.</p>
-          <div class="hero-actions">
-            <a class="app-store" href="#download" aria-label="Download on the App Store">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.37 12.6c-.02-2.33 1.9-3.45 1.99-3.5-1.09-1.59-2.78-1.8-3.38-1.83-1.44-.15-2.81.85-3.54.85-.73 0-1.86-.83-3.06-.81-1.57.02-3.02.92-3.83 2.33-1.63 2.83-.42 7.02 1.17 9.31.78 1.12 1.7 2.38 2.91 2.34 1.17-.05 1.61-.76 3.02-.76 1.41 0 1.81.76 3.05.73 1.26-.02 2.06-1.14 2.83-2.27.89-1.3 1.26-2.56 1.28-2.62-.03-.01-2.45-.94-2.44-3.77zM14.05 5.76c.64-.78 1.08-1.86.96-2.94-.93.04-2.05.62-2.71 1.39-.6.69-1.12 1.79-.98 2.85 1.04.08 2.09-.53 2.73-1.3z"/></svg>
-              <span><small>Download on the</small><strong>App Store</strong></span>
-            </a>
-            <a class="btn ghost lg" href="#sample">Read a story</a>
-          </div>
-          <p class="hero-note">Free. No ads. Coming soon to the App Store.</p>
+  <div class="layout">
+    <!-- Left: about Storyds -->
+    <main class="pitch">
+      <section class="hero">
+        <p class="eyebrow">For iPhone</p>
+        <h1>Short stories you can finish <em>in one sitting.</em></h1>
+        <p class="lede">Every story is under 1,200 words, about six minutes from the first line to the last. Read one now, then keep going in the app.</p>
+        <div class="hero-actions">
+          <a class="app-store" href="#download" aria-label="Download on the App Store">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.37 12.6c-.02-2.33 1.9-3.45 1.99-3.5-1.09-1.59-2.78-1.8-3.38-1.83-1.44-.15-2.81.85-3.54.85-.73 0-1.86-.83-3.06-.81-1.57.02-3.02.92-3.83 2.33-1.63 2.83-.42 7.02 1.17 9.31.78 1.12 1.7 2.38 2.91 2.34 1.17-.05 1.61-.76 3.02-.76 1.41 0 1.81.76 3.05.73 1.26-.02 2.06-1.14 2.83-2.27.89-1.3 1.26-2.56 1.28-2.62-.03-.01-2.45-.94-2.44-3.77zM14.05 5.76c.64-.78 1.08-1.86.96-2.94-.93.04-2.05.62-2.71 1.39-.6.69-1.12 1.79-.98 2.85 1.04.08 2.09-.53 2.73-1.3z"/></svg>
+            <span><small>Download on the</small><strong>App Store</strong></span>
+          </a>
+          <a class="btn ghost lg read-now" href="#stories">Read a story <span class="arrow" aria-hidden="true">→</span></a>
         </div>
+        <p class="hero-note">Free. No ads. Coming soon to the App Store.</p>
+      </section>
 
-        <div class="phone-stage" aria-label="The Storyds reading feed">
-          <div class="phone">
-            <div class="screen">
-              <div class="island"></div>
-              <div class="statusbar"><span>9:41</span><i>●●● ▮</i></div>
-              <div class="tabs"><b>For you</b><span>Quick read</span><span>Fiction</span><span>Romance</span></div>
-
-              <div class="feed">
-                <div class="feed-track">
-                  <div class="page">
-                    <div class="cover cv-lighthouse"></div>
-                    <div class="meta">Fiction · 2 min read</div>
-                    <h4>The Lighthouse Keeper’s Daughter</h4>
-                    <p>Every night at nine, my father climbed the hundred and twelve steps to light the lamp. Every night at nine-oh-five, I climbed them too, counting out loud so he’d know I was coming.</p>
-                    <p>He never turned around. He’d just say the next number before I could.</p>
-                    <span class="more">Continue reading</span>
-                  </div>
-                  <div class="page">
-                    <div class="cover cv-pancakes"></div>
-                    <div class="meta">Slice of Life · 3 min read</div>
-                    <h4>Tuesday Pancakes</h4>
-                    <p>Grandma never made pancakes on weekends. “Too obvious,” she said. Tuesday was pancake day, for no reason except that Tuesdays needed help.</p>
-                    <p>Mondays had momentum, she explained. You were angry about the week starting, and anger gets things done.</p>
-                    <span class="more">Continue reading</span>
-                  </div>
-                  <div class="page">
-                    <div class="cover cv-mars"></div>
-                    <div class="meta">Sci-Fi · 4 min read</div>
-                    <h4>The Last Library on Mars</h4>
-                    <p>When the colony voted to recycle the paper books for insulation, Rosa hid four hundred of them in the old oxygen tanks.</p>
-                    <p>The vote wasn’t cruel. It was practical. Paper was mass. Mass was warmth.</p>
-                    <span class="more">Continue reading</span>
-                  </div>
-                  <div class="page">
-                    <div class="cover cv-bus"></div>
-                    <div class="meta">Reflective · 2 min read</div>
-                    <h4>Notes From the Night Bus</h4>
-                    <p>The night bus is the most honest place in the city.</p>
-                    <p>Nobody is performing. By one in the morning, all of that has worn off. What’s left is people, tired in the specific ways their lives have made them tired.</p>
-                    <span class="more">Continue reading</span>
-                  </div>
-                </div>
-              </div>
-
-              <div class="tabbar" aria-hidden="true">
-                <span class="on"><svg viewBox="0 0 24 24"><path d="M4 5.5C6.5 4.5 9.5 4.5 12 6c2.5-1.5 5.5-1.5 8-.5v13c-2.5-1-5.5-1-8 .5-2.5-1.5-5.5-1.5-8-.5z"/><path d="M12 6v13.5"/></svg>Read</span>
-                <span><svg viewBox="0 0 24 24"><path d="M15.5 4.5l4 4L9 19l-5 1 1-5z"/></svg>Write</span>
-                <span><svg viewBox="0 0 24 24"><circle cx="12" cy="8.5" r="3.8"/><path d="M4.5 20c1-4 4-5.8 7.5-5.8s6.5 1.8 7.5 5.8"/></svg>Profile</span>
-              </div>
-            </div>
-          </div>
-          <div class="swipe-hint">Swipe up</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- How it works -->
-    <section id="how" class="tint">
-      <div class="wrap">
+      <section id="how">
         <div class="section-head reveal">
           <p class="eyebrow">How it works</p>
           <h2>A feed that ends every few minutes.</h2>
@@ -122,70 +62,47 @@
         <div class="steps">
           <div class="step reveal">
             <span class="num">01</span>
-            <img class="doodle" src="assets/illustrations/book-r.svg" alt="" width="165" height="140">
+            <img class="doodle" src="assets/illustrations/book-r.svg" alt="" width="141" height="120">
             <h3>Swipe</h3>
             <p>The Read tab is a full-screen feed. Swipe up for the next story, down to go back. For you learns what you like as you read.</p>
           </div>
           <div class="step reveal">
             <span class="num">02</span>
-            <img class="doodle" src="assets/illustrations/yoga-r.svg" alt="" width="102" height="140">
+            <img class="doodle" src="assets/illustrations/yoga-r.svg" alt="" width="87" height="120">
             <h3>Read</h3>
-            <p>Set in Charter at a comfortable size, with room to breathe between paragraphs. Light or dark, it reads like a good book.</p>
+            <p>Set in Charter at a comfortable size, with room between paragraphs. Light or dark, it reads like a good book.</p>
           </div>
           <div class="step reveal">
             <span class="num">03</span>
-            <img class="doodle" src="assets/illustrations/LovedHeart.svg" alt="" width="149" height="140">
+            <img class="doodle" src="assets/illustrations/LovedHeart.svg" alt="" width="128" height="120">
             <h3>Love</h3>
-            <p>Tap the heart on the stories that stay with you. They’re kept in your Loved list so you can come back, or share one as an image.</p>
+            <p>Tap the heart on the stories that stay with you. They’re kept in your Loved list, or share one as an image.</p>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- Sample story -->
-    <section id="sample" class="story-sample">
-      <div class="wrap">
-        <article>
-          <p class="eyebrow">Try one now</p>
-          <div class="meta">Fiction · 2 min read</div>
-          <h2>The Lighthouse Keeper’s Daughter</h2>
-          <p class="first">Every night at nine, my father climbed the hundred and twelve steps to light the lamp. Every night at nine-oh-five, I climbed them too, counting out loud so he’d know I was coming.</p>
-          <p>He never turned around. He’d just say the next number before I could, like we were sharing one long sentence. Forty-one. Forty-two. By the top I’d be out of breath and he’d be polishing the brass, pretending he hadn’t been waiting.</p>
-          <p>The lamp room smelled of kerosene and salt. He taught me to trim the wick, to wipe the lens in circles, never lines, and to look at the water for a full minute before deciding the night was calm. “The sea lies in the first thirty seconds,” he said. “It tells the truth in the second thirty.”</p>
-          <p>The winter I turned twelve, a fishing boat came in out of a storm, steering by our light alone. The captain walked up the hill the next morning with a bucket of mackerel and shook my father’s hand for a long time without saying anything. That was when I understood that the lamp wasn’t a job. It was a promise made to strangers, renewed every night.</p>
-          <p>The year he got sick, I climbed the steps alone. I still counted out loud. Some nights I swore I heard him answer from the dark at the top, one number ahead of me, the way he always was.</p>
-          <p>The lighthouse is automatic now. A sensor turns on the lamp at dusk, and no one has to climb anything. I visit in the summers anyway. I take the stairs slowly, and I count.</p>
-          <p>Some habits are less about the stairs and more about who’s listening at the top.</p>
-          <div class="end">That was a whole story. Swipe up for the next one.</div>
-        </article>
-      </div>
-    </section>
-
-    <!-- Write -->
-    <section id="write" class="tint">
-      <div class="wrap split">
-        <div class="reveal">
-          <p class="eyebrow">Write</p>
-          <div class="section-head" style="margin-bottom:0">
-            <h2>Room for a whole story, and nothing extra.</h2>
-            <p>The Write tab gives you a quiet page, a word count, and a limit that makes every sentence earn its place.</p>
+      <section id="write" class="tint">
+        <div class="split">
+          <div class="reveal">
+            <div class="section-head">
+              <p class="eyebrow">Write</p>
+              <h2>Room for a whole story, and nothing extra.</h2>
+              <p>The Write tab gives you a quiet page, a word count, and a limit that makes every sentence earn its place.</p>
+            </div>
+            <ul class="facts">
+              <li><b>1,200</b><span>words at most, about a six-minute read. The counter tells you how many you have left.</span></li>
+              <li><b>7</b><span>genres to file it under, so readers find it on the Read tab.</span></li>
+              <li><b>1</b><span>optional cover photo, and a preview of exactly how your story will look before you publish.</span></li>
+              <li><b>0</b><span>lost drafts. Your unfinished story is saved on your phone as you type.</span></li>
+            </ul>
           </div>
-          <ul class="facts">
-            <li><b>1,200</b><span>words at most, about a six-minute read. The counter tells you how many you have left.</span></li>
-            <li><b>7</b><span>genres to file it under, so readers find it on the Read tab.</span></li>
-            <li><b>1</b><span>optional cover photo, and a preview of exactly how your story will look before you publish.</span></li>
-            <li><b>0</b><span>lost drafts. Your unfinished story is saved on your phone as you type.</span></li>
-          </ul>
+          <div class="art reveal">
+            <img class="doodle" src="assets/illustrations/WritingDesk.svg" alt="A person writing at a desk" width="300" height="255">
+          </div>
         </div>
-        <div class="art reveal">
-          <img class="doodle" src="assets/illustrations/WritingDesk.svg" alt="A person writing at a desk" width="420" height="357">
-        </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- Genres -->
-    <section id="genres">
-      <div class="wrap">
+      <section id="genres">
         <div class="section-head reveal">
           <p class="eyebrow">Genres</p>
           <h2>Whatever you’re in the mood for.</h2>
@@ -202,12 +119,9 @@
           <span class="genre">Reflective</span>
         </div>
         <p class="genre-note reveal">Each one is a tab across the top of the feed. Search finds stories and writers by name.</p>
-      </div>
-    </section>
+      </section>
 
-    <!-- Safety -->
-    <section id="safety" class="tint">
-      <div class="wrap">
+      <section id="safety" class="tint">
         <div class="section-head reveal">
           <p class="eyebrow">A good place to read</p>
           <h2>Quiet by design.</h2>
@@ -222,12 +136,12 @@
           <div class="promise reveal">
             <img class="doodle" src="assets/illustrations/TornPage.svg" alt="" width="90" height="76">
             <h3>Report a story</h3>
-            <p>Tap ••• on any story to report it. Reports are private and we review them promptly.</p>
+            <p>Report any story from the app or from its page here. Reports are private and we review them promptly.</p>
           </div>
           <div class="promise reveal">
             <img class="doodle" src="assets/illustrations/QuietBell.svg" alt="" width="90" height="76">
             <h3>Block a writer</h3>
-            <p>Stop seeing someone’s stories with one tap. They aren’t told.</p>
+            <p>Stop seeing someone’s stories in the app with one tap. They aren’t told.</p>
           </div>
           <div class="promise reveal">
             <img class="doodle" src="assets/illustrations/NoResults.svg" alt="" width="90" height="76">
@@ -235,12 +149,9 @@
             <p>Reading history and drafts stay on your phone. Delete your account any time in Settings.</p>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- FAQ -->
-    <section id="faq">
-      <div class="wrap">
+      <section id="faq">
         <div class="section-head reveal">
           <p class="eyebrow">FAQ</p>
           <h2>Questions, answered.</h2>
@@ -256,11 +167,11 @@
           </details>
           <details>
             <summary>Do I need an account to read?</summary>
-            <p>No. Open the app and start swiping. You’ll need an account to publish, love stories and keep them on your profile.</p>
+            <p>No. Read here, or open the app and start swiping. You’ll need an account to publish, love stories and keep them on your profile.</p>
           </details>
           <details>
             <summary>Who owns the stories I publish?</summary>
-            <p>You do. Publishing gives Storyds permission to show your story in the app, and that ends when you delete the story or your account. See the <a href="terms.html">Terms of Service</a>.</p>
+            <p>You do. See the <a href="terms.html">Terms of Service</a> for what publishing lets Storyds do with your story.</p>
           </details>
           <details>
             <summary>Can I write dark stories?</summary>
@@ -271,12 +182,9 @@
             <p>Not yet. Storyds is iPhone-only for now.</p>
           </details>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- CTA -->
-    <section id="download" class="cta tint">
-      <div class="wrap">
+      <section id="download" class="cta tint">
         <img src="assets/mark.png" alt="" width="62" height="72">
         <h2>Your next favorite story is six minutes long.</h2>
         <p>Storyds is coming soon to the App Store for iPhone.</p>
@@ -284,21 +192,40 @@
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.37 12.6c-.02-2.33 1.9-3.45 1.99-3.5-1.09-1.59-2.78-1.8-3.38-1.83-1.44-.15-2.81.85-3.54.85-.73 0-1.86-.83-3.06-.81-1.57.02-3.02.92-3.83 2.33-1.63 2.83-.42 7.02 1.17 9.31.78 1.12 1.7 2.38 2.91 2.34 1.17-.05 1.61-.76 3.02-.76 1.41 0 1.81.76 3.05.73 1.26-.02 2.06-1.14 2.83-2.27.89-1.3 1.26-2.56 1.28-2.62-.03-.01-2.45-.94-2.44-3.77zM14.05 5.76c.64-.78 1.08-1.86.96-2.94-.93.04-2.05.62-2.71 1.39-.6.69-1.12 1.79-.98 2.85 1.04.08 2.09-.53 2.73-1.3z"/></svg>
           <span><small>Download on the</small><strong>App Store</strong></span>
         </a>
-      </div>
-    </section>
-  </main>
+      </section>
 
-  <footer class="site-footer">
-    <div class="wrap">
-      <span>© 2026 Storyds</span>
-      <nav aria-label="Footer">
-        <a href="support.html">Support</a>
-        <a href="privacy.html">Privacy</a>
-        <a href="terms.html">Terms</a>
-        <a href="guidelines.html">Community Guidelines</a>
-      </nav>
-    </div>
-  </footer>
+      <footer class="site-footer">
+        <span>© 2026 Storyds</span>
+        <nav aria-label="Footer">
+          <a href="support.html">Support</a>
+          <a href="privacy.html">Privacy</a>
+          <a href="terms.html">Terms</a>
+          <a href="guidelines.html">Community Guidelines</a>
+        </nav>
+      </footer>
+    </main>
+
+    <!-- Right: live stories from the app -->
+    <aside id="stories" class="library" aria-label="Latest stories">
+      <div class="library-list">
+        <div class="library-head">
+          <div class="library-title">
+            <h2>Latest stories</h2>
+            <span class="live"><i></i>Live from the app</span>
+          </div>
+          <div class="chips" role="group" aria-label="Filter by genre"></div>
+        </div>
+        <div class="cards" aria-live="polite"></div>
+      </div>
+
+      <article class="reader" hidden>
+        <div class="reader-bar">
+          <button class="back" type="button"><span aria-hidden="true">←</span> All stories</button>
+        </div>
+        <div class="reader-body"></div>
+      </article>
+    </aside>
+  </div>
 
   <script src="main.js"></script>
 </body>

@@ -1,10 +1,13 @@
 #!/usr/bin/env python3
-"""Build privacy.html, terms.html and guidelines.html from the iOS app's LegalText.swift.
+"""Build the site's generated parts. Run after editing LegalText.swift, the header or footer,
+or styles.css / main.js / stories.js:
 
-The app is the source of truth, so the website and the in-app legal pages never drift.
-Run after editing LegalText.swift:
+    python3 scripts/build.py [path/to/LegalText.swift]
 
-    python3 scripts/build_legal.py [path/to/LegalText.swift]
+1. privacy.html, terms.html and guidelines.html come from the iOS app's LegalText.swift,
+   so the website and the in-app legal pages never drift. support.html is written here too.
+2. The shared header and footer are written into the hand-made pages (index, story, about)
+   between their <!--HEADER--> / <!--FOOTER--> markers, and every ?v= asset version is synced.
 
 Format (same rules as the app's LegalPageView): the first line is the title,
 "Last updated" is shown small, "1. Heading" lines become headings,
@@ -18,7 +21,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 # Bump with styles.css / main.js changes so browsers don't pair new HTML with cached assets
-ASSET_VERSION = "4"
+ASSET_VERSION = "5"
 DEFAULT_SOURCE = ROOT.parent / "Storyds" / "Storyds" / "Features" / "Settings" / "LegalText.swift"
 
 PAGES = [
@@ -29,6 +32,54 @@ PAGES = [
 ]
 
 NAV = [("support.html", "Support")] + [(f, label) for _, f, label in PAGES]
+
+# Hand-made pages that get the shared header and footer, and the main nav item each one marks current
+HAND_PAGES = {"index.html": "./", "story.html": "./", "about.html": "about.html"}
+
+MAIN_NAV = [("./", "Stories"), ("about.html", "About")]
+
+
+def header(current: str) -> str:
+    current_attr = ' aria-current="page"'
+    links = "\n        ".join(
+        f'<a href="{href}"{current_attr if href == current else ""}>{label}</a>' for href, label in MAIN_NAV
+    )
+    return f"""<!--HEADER-->
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="./" aria-label="Storyds home">
+        <img src="assets/mark.png" alt="" width="22" height="26">
+        <span>Storyds</span>
+      </a>
+      <nav class="nav" aria-label="Main">
+        {links}
+        <a class="btn" href="about.html#download">Get the app</a>
+      </nav>
+    </div>
+  </header>
+  <!--/HEADER-->"""
+
+
+FOOTER = """<!--FOOTER-->
+  <footer class="site-footer">
+    <div class="wrap">
+      <span>© 2026 Storyds</span>
+      <nav aria-label="Footer">
+        <a href="about.html">About</a>
+        <a href="support.html">Support</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+        <a href="guidelines.html">Community Guidelines</a>
+      </nav>
+    </div>
+  </footer>
+  <!--/FOOTER-->"""
+
+
+def sync_shared(text: str, current: str) -> str:
+    text = re.sub(r"<!--HEADER-->(.*?<!--/HEADER-->)?", lambda _: header(current), text, count=1, flags=re.S)
+    text = re.sub(r"<!--FOOTER-->(.*?<!--/FOOTER-->)?", lambda _: FOOTER, text, count=1, flags=re.S)
+    return re.sub(r"((?:styles\.css|main\.js|stories\.js)\?v=)\w+", rf"\g<1>{ASSET_VERSION}", text)
 
 
 def read_constants(swift: str) -> dict:
@@ -80,17 +131,7 @@ def shell(title: str, description: str, current: str, body: str) -> str:
   <link rel="stylesheet" href="styles.css?v={ASSET_VERSION}">
 </head>
 <body>
-  <header class="site-header">
-    <div class="wrap">
-      <a class="brand" href="./" aria-label="Storyds home">
-        <img src="assets/mark.png" alt="" width="22" height="26">
-        <span>Storyds</span>
-      </a>
-      <nav class="nav" aria-label="Main">
-        <a class="btn" href="./#download">Get the app</a>
-      </nav>
-    </div>
-  </header>
+  {header("")}
 
   <main class="doc">
     <div class="wrap">
@@ -102,17 +143,7 @@ def shell(title: str, description: str, current: str, body: str) -> str:
     </div>
   </main>
 
-  <footer class="site-footer">
-    <div class="wrap">
-      <span>© 2026 Storyds</span>
-      <nav aria-label="Footer">
-        <a href="support.html">Support</a>
-        <a href="privacy.html">Privacy</a>
-        <a href="terms.html">Terms</a>
-        <a href="guidelines.html">Community Guidelines</a>
-      </nav>
-    </div>
-  </footer>
+  {FOOTER}
   <script src="main.js?v={ASSET_VERSION}"></script>
 </body>
 </html>
@@ -151,6 +182,11 @@ def main() -> None:
         shell("Support", "Get help with Storyds.", "support.html", support_body(email))
     )
     print("wrote support.html")
+
+    for filename, current in HAND_PAGES.items():
+        path = ROOT / filename
+        path.write_text(sync_shared(path.read_text(), current))
+        print(f"synced {filename}")
 
 
 if __name__ == "__main__":

@@ -35,3 +35,8 @@ Use these URLs once Pages is live:
 
 - Support URL: `/support.html`
 - Privacy Policy URL: `/privacy.html`
+
+## Cache busting
+
+GitHub Pages lets browsers cache files for 10 minutes. When you change `styles.css` or `main.js`,
+bump `?v=` in `index.html` and `ASSET_VERSION` in `scripts/build_legal.py`, then rerun the script.

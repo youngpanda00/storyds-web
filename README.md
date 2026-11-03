@@ -49,3 +49,10 @@ Use these URLs once Pages is live:
 
 GitHub Pages lets browsers cache files for 10 minutes. When you change `styles.css`, `main.js` or
 `stories.js`, bump `ASSET_VERSION` in `scripts/build.py` and rerun it.
+
+Add `?demo` to preview with sample stories (`?demo=0` turns it off). They come from
+`demo/stories.json` (git-ignored), generated from the app's `MockSeed.swift`:
+
+```sh
+python3 scripts/demo_seed.py              # expects ../Storyds next to this repo
+```

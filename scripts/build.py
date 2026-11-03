@@ -21,7 +21,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 # Bump with styles.css / main.js changes so browsers don't pair new HTML with cached assets
-ASSET_VERSION = "6"
+ASSET_VERSION = "11"
 DEFAULT_SOURCE = ROOT.parent / "Storyds" / "Storyds" / "Features" / "Settings" / "LegalText.swift"
 
 PAGES = [
@@ -125,9 +125,6 @@ def shell(title: str, description: str, current: str, body: str) -> str:
   <meta name="description" content="{html.escape(description)}">
   <link rel="icon" type="image/png" href="assets/favicon.png">
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,400;1,500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css?v={ASSET_VERSION}">
 </head>
 <body>

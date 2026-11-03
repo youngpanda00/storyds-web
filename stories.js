@@ -190,8 +190,10 @@
     );
   }
 
-  // A story card. "lead" is the big featured layout, "tile" the grid layout.
+  // A story card. "lead" is the big featured layout, "tile" the grid layout,
+  // "row" the home page's list layout (text, then a thumbnail on the right).
   function card(story, kind) {
+    if (kind === "row") return row(story);
     return el(
       "a",
       { class: `story-card ${kind} fade-in` + (story.cover ? " has-cover" : ""), href: storyURL(story) },
@@ -204,6 +206,22 @@
         el("p", { class: "excerpt", text: excerpt(story.content, kind === "lead" ? 420 : story.cover ? 180 : 320) }),
         byline(story)
       )
+    );
+  }
+
+  function row(story) {
+    return el(
+      "a",
+      { class: "story-card row fade-in" + (story.cover ? " has-cover" : ""), href: storyURL(story) },
+      el(
+        "div",
+        { class: "card-text" },
+        meta(story),
+        el("h3", { text: story.title || "Untitled" }),
+        el("p", { class: "excerpt", text: excerpt(story.content, 260) }),
+        byline(story)
+      ),
+      story.cover ? el("div", { class: "cover-wrap" }, el("img", { class: "cover", src: story.cover, alt: "", loading: "lazy" })) : null
     );
   }
 
@@ -230,9 +248,9 @@
     }
 
     function renderLoading() {
-      const sk = (cls) => el("div", { class: `story-card ${cls} skeleton`, "aria-hidden": "true" }, el("div", { class: "cover-wrap" }), el("div", { class: "card-text" }, el("div", { class: "bar s" }), el("div", { class: "bar t" }), el("div", { class: "bar" }), el("div", { class: "bar" })));
-      lead.replaceChildren(sk("lead has-cover"));
-      grid.replaceChildren(sk("tile"), sk("tile"), sk("tile"));
+      const sk = () => el("div", { class: "story-card row has-cover skeleton", "aria-hidden": "true" }, el("div", { class: "card-text" }, el("div", { class: "bar s" }), el("div", { class: "bar t" }), el("div", { class: "bar" }), el("div", { class: "bar" })), el("div", { class: "cover-wrap" }));
+      lead.replaceChildren();
+      grid.replaceChildren(sk(), sk(), sk(), sk());
       end.replaceChildren();
     }
 
@@ -287,14 +305,12 @@
             text: "Be the first to write one. Stories published in the app show up here.",
           })
         );
-        grid.replaceChildren();
+          grid.replaceChildren();
         end.replaceChildren();
         return;
       }
-      const list = visible();
-      const [first, ...rest] = list;
-      lead.replaceChildren(card(first, "lead"));
-      grid.replaceChildren(...rest.map((s) => card(s, "tile")));
+      lead.replaceChildren();
+      grid.replaceChildren(...visible().map((s) => card(s, "row")));
       end.replaceChildren(
         state({
           image: "assets/illustrations/AllCaughtUp.png", w: 87, h: 120,

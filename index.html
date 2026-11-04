@@ -3,18 +3,46 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Storyds — Short stories you can finish in one sitting</title>
-  <meta name="description" content="Read the latest short stories from Storyds. Every story is under 1,200 words, about six minutes from the first line to the last.">
+  <!--SEO-->
+  <title>Storyds · Short stories you can read in five minutes</title>
+  <meta name="description" content="Read short, honest stories from the Storyds community, new every day. Fiction, romance, fantasy, sci-fi and more, each one finished in a single sitting.">
+  <link rel="canonical" href="https://youngpanda00.github.io/storyds-web/">
+  <meta property="og:site_name" content="Storyds">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Storyds · Short stories you can read in five minutes">
+  <meta property="og:description" content="Read short, honest stories from the Storyds community, new every day. Fiction, romance, fantasy, sci-fi and more, each one finished in a single sitting.">
+  <meta property="og:url" content="https://youngpanda00.github.io/storyds-web/">
+  <meta property="og:image" content="https://youngpanda00.github.io/storyds-web/assets/wordmark-square.png">
+  <meta name="twitter:card" content="summary">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://youngpanda00.github.io/storyds-web/#org",
+      "name": "Storyds",
+      "url": "https://youngpanda00.github.io/storyds-web/",
+      "logo": "https://youngpanda00.github.io/storyds-web/assets/apple-touch-icon.png"
+    },
+    {
+      "@type": "WebSite",
+      "name": "Storyds",
+      "url": "https://youngpanda00.github.io/storyds-web/",
+      "publisher": {
+        "@id": "https://youngpanda00.github.io/storyds-web/#org"
+      }
+    }
+  ]
+}
+  </script>
+  <!--/SEO-->
   <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#171719" media="(prefers-color-scheme: dark)">
-  <meta property="og:title" content="Storyds">
-  <meta property="og:description" content="Short stories you can finish in one sitting.">
-  <meta property="og:image" content="assets/wordmark-square.png">
-  <meta property="og:type" content="website">
   <link rel="icon" type="image/png" href="assets/favicon.png">
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
   <link rel="preconnect" href="https://sdwhmsjtntwxvchxbtth.supabase.co" crossorigin>
-  <link rel="stylesheet" href="styles.css?v=11">
+  <link rel="stylesheet" href="styles.css?v=32">
   <script>
     // Links shared before stories had their own page used #story=<id> on the home page
     (function () {
@@ -41,25 +69,18 @@
   <!--/HEADER-->
 
   <main>
-    <section class="intro">
-      <div class="wrap">
-        <div class="intro-text">
-          <h1>Short stories you can finish <em>in one sitting.</em></h1>
-          <p>Every story is under 1,200 words, written by people on Storyds. <a href="about.html">About Storyds →</a></p>
-        </div>
-        <span class="live"><i></i>Live from the app</span>
-      </div>
-    </section>
-
-    <div class="tabs-bar">
-      <div class="wrap">
-        <div class="chips" role="group" aria-label="Filter by genre"></div>
-      </div>
-    </div>
-
     <section class="feed">
       <div class="wrap feed-layout">
         <div class="feed-main">
+          <div class="intro">
+            <h1>Your next five minutes, <em>sorted.</em></h1>
+            <p>Short, honest stories from the Storyds community.</p>
+          </div>
+
+          <div class="tabs-bar">
+            <div class="chips" role="group" aria-label="Filter by genre"></div>
+          </div>
+
           <div class="feed-lead" aria-live="polite"></div>
           <div class="feed-grid"></div>
           <div class="feed-end"></div>
@@ -73,7 +94,6 @@
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.37 12.6c-.02-2.33 1.9-3.45 1.99-3.5-1.09-1.59-2.78-1.8-3.38-1.83-1.44-.15-2.81.85-3.54.85-.73 0-1.86-.83-3.06-.81-1.57.02-3.02.92-3.83 2.33-1.63 2.83-.42 7.02 1.17 9.31.78 1.12 1.7 2.38 2.91 2.34 1.17-.05 1.61-.76 3.02-.76 1.41 0 1.81.76 3.05.73 1.26-.02 2.06-1.14 2.83-2.27.89-1.3 1.26-2.56 1.28-2.62-.03-.01-2.45-.94-2.44-3.77zM14.05 5.76c.64-.78 1.08-1.86.96-2.94-.93.04-2.05.62-2.71 1.39-.6.69-1.12 1.79-.98 2.85 1.04.08 2.09-.53 2.73-1.3z"/></svg>
             <span><small>Download on the</small><strong>App Store</strong></span>
           </a>
-          <small class="app-banner-note">Coming soon for iPhone</small>
         </aside>
       </div>
     </section>
@@ -105,7 +125,7 @@
   </footer>
   <!--/FOOTER-->
 
-  <script src="main.js?v=11"></script>
-  <script src="stories.js?v=11"></script>
+  <script src="main.js?v=32"></script>
+  <script src="stories.js?v=32"></script>
 </body>
 </html>

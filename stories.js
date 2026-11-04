@@ -6,7 +6,6 @@
   // public by design: access is limited by row level security (supabase/schema.sql).
   const SUPABASE_URL = "https://sdwhmsjtntwxvchxbtth.supabase.co";
   const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNkd2htc2p0bnR3eHZjaHhidHRoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTM2MjcyMjMsImV4cCI6MjEwOTIwMzIyM30.vcRbQS7sOxlDlLuJtHxGFuox6yWj4Rm4e4DRfBsAPMA";
-  const SUPPORT_EMAIL = "support@storyds.app";
   const GENRES = ["Fiction", "Romance", "Slice of Life", "Fantasy", "Sci-Fi", "Dark", "Reflective"];
   const PAGE_SIZE = 60;
   const POST_COLUMNS = "id,user_id,title,content,genre,image_url,created_at";
@@ -235,12 +234,6 @@
     let stories = [];
     let filter = new URLSearchParams(location.search).get("genre") || "All";
 
-    const live = document.querySelector(".live");
-    if (DEMO && live) {
-      live.classList.add("demo");
-      live.lastChild.textContent = "Demo stories mixed in";
-    }
-
     function visible() {
       if (filter === "All") return stories;
       if (filter === "Quick read") return stories.filter((s) => s.minutes <= 1);
@@ -305,19 +298,13 @@
             text: "Be the first to write one. Stories published in the app show up here.",
           })
         );
-          grid.replaceChildren();
+        grid.replaceChildren();
         end.replaceChildren();
         return;
       }
       lead.replaceChildren();
       grid.replaceChildren(...visible().map((s) => card(s, "row")));
-      end.replaceChildren(
-        state({
-          image: "assets/illustrations/AllCaughtUp.png", w: 87, h: 120,
-          title: "You’re all caught up",
-          text: "New stories show up here as soon as they’re published in the app.",
-        })
-      );
+      end.replaceChildren();
     }
 
     async function load() {
@@ -362,10 +349,39 @@
       );
     }
 
+    // Search engines run this page's script, so give each story its own title, description,
+    // canonical URL and Article data instead of the generic ones in story.html
+    function describePage(story) {
+      const title = `${story.title || "Untitled"} by ${story.author} · Storyds`;
+      const description = excerpt(story.content, 160);
+      const url = new URL(storyURL(story), location.href).href;
+      document.title = title;
+      const set = (selector, value) => document.querySelector(selector)?.setAttribute(selector.startsWith("link") ? "href" : "content", value);
+      set('meta[name="description"]', description);
+      set('link[rel="canonical"]', url);
+      set('meta[property="og:title"]', title);
+      set('meta[property="og:description"]', description);
+      set('meta[property="og:url"]', url);
+      if (story.cover) set('meta[property="og:image"]', story.cover);
+
+      const data = {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        headline: story.title || "Untitled",
+        description,
+        author: { "@type": "Person", name: story.author },
+        datePublished: story.created_at,
+        genre: story.genre || undefined,
+        wordCount: (story.content || "").trim().split(/\s+/).length,
+        image: story.cover || undefined,
+        url,
+        publisher: { "@type": "Organization", name: "Storyds" },
+      };
+      document.head.append(el("script", { type: "application/ld+json", text: JSON.stringify(data) }));
+    }
+
     function render(story) {
-      document.title = `${story.title || "Untitled"} · Storyds`;
-      const description = document.querySelector('meta[name="description"]');
-      if (description) description.setAttribute("content", excerpt(story.content, 160));
+      describePage(story);
 
       article.replaceChildren(
         el(
@@ -382,20 +398,9 @@
             "div",
             { class: "after-story" },
             el("img", { src: "assets/mark.png", alt: "", width: 41, height: 48 }),
-            el(
-              "div",
-              {},
-              el("p", { text: "There’s a whole feed of stories like this one. Swipe through them in the Storyds app." }),
-              el("a", { class: "btn", href: "about.html#download", text: "Get the app" })
-            )
-          ),
-          el("a", {
-            class: "report",
-            href: `mailto:${SUPPORT_EMAIL}?subject=${encodeURIComponent("Report story " + story.id)}&body=${encodeURIComponent(
-              `Story: ${story.title || "Untitled"} by ${story.author}\nID: ${story.id}\n\nWhat's wrong with this story?\n`
-            )}`,
-            text: "Report this story",
-          })
+            el("p", { text: "More stories like this in the Storyds app." }),
+            el("a", { class: "btn", href: "about.html#download", text: "Get the app" })
+          )
         )
       );
     }

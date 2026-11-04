@@ -8,6 +8,9 @@ or styles.css / main.js / stories.js:
    so the website and the in-app legal pages never drift. support.html is written here too.
 2. The shared header and footer are written into the hand-made pages (index, story, about)
    between their <!--HEADER--> / <!--FOOTER--> markers, and every ?v= asset version is synced.
+3. Each page's title, description, canonical URL, link-preview tags and structured data go
+   between its <!--SEO--> markers, and sitemap.xml + robots.txt are written. The sitemap lists
+   every published story, so re-run before pushing to pick up new ones.
 
 Format (same rules as the app's LegalPageView): the first line is the title,
 "Last updated" is shown small, "1. Heading" lines become headings,
@@ -15,23 +18,46 @@ everything else is a paragraph.
 """
 
 import html
+import json
 import re
 import sys
+import urllib.request
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 # Bump with styles.css / main.js changes so browsers don't pair new HTML with cached assets
-ASSET_VERSION = "11"
+ASSET_VERSION = "32"
+# The live address. Change this one line if the site moves to its own domain.
+SITE_URL = "https://youngpanda00.github.io/storyds-web/"
 DEFAULT_SOURCE = ROOT.parent / "Storyds" / "Storyds" / "Features" / "Settings" / "LegalText.swift"
 
 PAGES = [
-    # (Swift constant, output file, nav label)
-    ("privacyPolicyContent", "privacy.html", "Privacy"),
-    ("termsOfServiceContent", "terms.html", "Terms"),
-    ("communityGuidelinesContent", "guidelines.html", "Community Guidelines"),
+    # (Swift constant, output file, nav label, meta description)
+    ("privacyPolicyContent", "privacy.html", "Privacy", "What Storyds collects, how it's used, and how to delete your account and data."),
+    ("termsOfServiceContent", "terms.html", "Terms", "The rules for using Storyds and publishing your short stories on it."),
+    ("communityGuidelinesContent", "guidelines.html", "Community Guidelines", "What's welcome on Storyds, what isn't, and how reporting and blocking work."),
 ]
 
-NAV = [("support.html", "Support")] + [(f, label) for _, f, label in PAGES]
+NAV = [("support.html", "Support")] + [(f, label) for _, f, label, _ in PAGES]
+
+APP_DESCRIPTION = (
+    "Storyds is a free iPhone app for reading and writing short stories you can finish in one sitting."
+)
+
+# Per hand-made page: (title, description)
+HAND_SEO = {
+    "index.html": (
+        "Storyds · Short stories you can read in five minutes",
+        "Read short, honest stories from the Storyds community, new every day. "
+        "Fiction, romance, fantasy, sci-fi and more, each one finished in a single sitting.",
+    ),
+    "about.html": (
+        "About Storyds · A short story app for iPhone",
+        APP_DESCRIPTION + " Read the latest stories online, or swipe through them in the app.",
+    ),
+    # story.js replaces these with the story's own once it loads
+    "story.html": ("A short story on Storyds", "A short story on Storyds, finished in a single sitting."),
+}
 
 # Hand-made pages that get the shared header and footer, and the main nav item each one marks current
 HAND_PAGES = {"index.html": "./", "story.html": "./", "about.html": "about.html"}
@@ -82,6 +108,106 @@ def sync_shared(text: str, current: str) -> str:
     return re.sub(r"((?:styles\.css|main\.js|stories\.js)\?v=)\w+", rf"\g<1>{ASSET_VERSION}", text)
 
 
+def page_url(filename: str) -> str:
+    return SITE_URL if filename == "index.html" else SITE_URL + filename
+
+
+def seo(filename: str, title: str, description: str, data: list = None) -> str:
+    url = page_url(filename)
+    tags = [
+        f"<title>{html.escape(title)}</title>",
+        f'<meta name="description" content="{html.escape(description)}">',
+        f'<link rel="canonical" href="{url}">',
+        '<meta property="og:site_name" content="Storyds">',
+        f'<meta property="og:type" content="{"article" if filename == "story.html" else "website"}">',
+        f'<meta property="og:title" content="{html.escape(title)}">',
+        f'<meta property="og:description" content="{html.escape(description)}">',
+        f'<meta property="og:url" content="{url}">',
+        f'<meta property="og:image" content="{SITE_URL}assets/wordmark-square.png">',
+        '<meta name="twitter:card" content="summary">',
+    ]
+    if data:
+        graph = json.dumps({"@context": "https://schema.org", "@graph": data}, ensure_ascii=False, indent=2)
+        tags.append(f'<script type="application/ld+json">\n{graph}\n  </script>')
+    return "<!--SEO-->\n  " + "\n  ".join(tags) + "\n  <!--/SEO-->"
+
+
+def organization() -> dict:
+    return {
+        "@type": "Organization",
+        "@id": SITE_URL + "#org",
+        "name": "Storyds",
+        "url": SITE_URL,
+        "logo": SITE_URL + "assets/apple-touch-icon.png",
+    }
+
+
+def faq_items(text: str) -> list:
+    """The FAQ structured data, read from the page's own <details> so the two never drift."""
+    items = []
+    for q, a in re.findall(r"<summary>(.*?)</summary>\s*<p>(.*?)</p>", text, re.S):
+        answer = html.unescape(re.sub(r"<[^>]+>", "", a)).strip()
+        items.append({"@type": "Question", "name": html.unescape(q), "acceptedAnswer": {"@type": "Answer", "text": answer}})
+    return items
+
+
+def structured_data(filename: str, text: str) -> list:
+    if filename == "index.html":
+        return [organization(), {"@type": "WebSite", "name": "Storyds", "url": SITE_URL, "publisher": {"@id": SITE_URL + "#org"}}]
+    if filename == "about.html":
+        return [
+            organization(),
+            {
+                "@type": "MobileApplication",
+                "name": "Storyds",
+                "operatingSystem": "iOS",
+                "applicationCategory": "BookApplication",
+                "description": APP_DESCRIPTION,
+                "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
+                "publisher": {"@id": SITE_URL + "#org"},
+            },
+            {"@type": "FAQPage", "mainEntity": faq_items(text)},
+        ]
+    return []
+
+
+def sync_seo(filename: str, text: str) -> str:
+    title, description = HAND_SEO[filename]
+    block = seo(filename, title, description, structured_data(filename, text))
+    return re.sub(r"<!--SEO-->.*?<!--/SEO-->", lambda _: block, text, count=1, flags=re.S)
+
+
+def published_stories() -> list:
+    """(id, created_at) for every published story, read with the same public key the site uses."""
+    js = (ROOT / "stories.js").read_text()
+    base = re.search(r'SUPABASE_URL = "([^"]+)"', js).group(1)
+    key = re.search(r'SUPABASE_KEY = "([^"]+)"', js).group(1)
+    req = urllib.request.Request(
+        f"{base}/rest/v1/posts?select=id,created_at&order=created_at.desc",
+        headers={"apikey": key, "Authorization": f"Bearer {key}"},
+    )
+    with urllib.request.urlopen(req, timeout=15) as res:
+        return [(r["id"], r["created_at"][:10]) for r in json.load(res)]
+
+
+def write_sitemap() -> None:
+    urls = [(page_url(f), None) for f in ["index.html", "about.html", "support.html", "privacy.html", "terms.html", "guidelines.html"]]
+    try:
+        stories = published_stories()
+        urls += [(f"{SITE_URL}story.html?id={sid}", day) for sid, day in stories]
+        print(f"sitemap: {len(stories)} stories")
+    except Exception as e:  # offline: still write the static pages
+        print(f"sitemap: couldn't fetch stories ({e}), static pages only")
+    entries = "\n".join(
+        f"  <url><loc>{html.escape(u)}</loc>" + (f"<lastmod>{d}</lastmod>" if d else "") + "</url>" for u, d in urls
+    )
+    (ROOT / "sitemap.xml").write_text(
+        f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{entries}\n</urlset>\n'
+    )
+    (ROOT / "robots.txt").write_text(f"User-agent: *\nAllow: /\n\nSitemap: {SITE_URL}sitemap.xml\n")
+    print("wrote sitemap.xml, robots.txt")
+
+
 def read_constants(swift: str) -> dict:
     values = dict(re.findall(r'let (\w+) = "([^"\n]*)"', swift))
     blocks = dict(re.findall(r'let (\w+) = """\n(.*?)\n"""', swift, re.S))
@@ -121,8 +247,7 @@ def shell(title: str, description: str, current: str, body: str) -> str:
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{html.escape(title)} · Storyds</title>
-  <meta name="description" content="{html.escape(description)}">
+  {seo(current, f"{title} · Storyds", description)}
   <link rel="icon" type="image/png" href="assets/favicon.png">
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
   <link rel="stylesheet" href="styles.css?v={ASSET_VERSION}">
@@ -169,21 +294,22 @@ def main() -> None:
     consts = read_constants(source.read_text())
     email = consts["supportEmail"]
 
-    for const, filename, _ in PAGES:
+    for const, filename, _, desc in PAGES:
         title, body = render_body(consts[const], email)
-        desc = f"Storyds {title}."
         (ROOT / filename).write_text(shell(title, desc, filename, body))
         print(f"wrote {filename}")
 
     (ROOT / "support.html").write_text(
-        shell("Support", "Get help with Storyds.", "support.html", support_body(email))
+        shell("Support", "Get help with the Storyds app: contact support, report a story or writer, or delete your account.", "support.html", support_body(email))
     )
     print("wrote support.html")
 
     for filename, current in HAND_PAGES.items():
         path = ROOT / filename
-        path.write_text(sync_shared(path.read_text(), current))
+        path.write_text(sync_seo(filename, sync_shared(path.read_text(), current)))
         print(f"synced {filename}")
+
+    write_sitemap()
 
 
 if __name__ == "__main__":

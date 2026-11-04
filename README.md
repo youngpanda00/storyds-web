@@ -24,6 +24,10 @@ public anon key as the iOS app. Row level security decides what's readable.
 - the shared header and footer inside `index.html`, `story.html` and `about.html`
   (between the `<!--HEADER-->` / `<!--FOOTER-->` markers)
 - the `?v=` version on every CSS/JS link
+- each page's title, description, canonical URL, link-preview tags and structured data
+  (between the `<!--SEO-->` markers; the About page's FAQ data is read from its own questions)
+- `sitemap.xml` and `robots.txt`, with every published story in the sitemap, so rerun it
+  before pushing to pick up new stories. `SITE_URL` is the one line to change for a custom domain.
 
 ```sh
 python3 scripts/build.py                  # expects ../Storyds next to this repo

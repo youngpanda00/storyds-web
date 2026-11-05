@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://youngpanda00.github.io/storyds-web/sitemap.xml
+Sitemap: https://storyds.com/sitemap.xml

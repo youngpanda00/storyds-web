@@ -28,7 +28,7 @@ ROOT = Path(__file__).resolve().parent.parent
 # Bump with styles.css / main.js changes so browsers don't pair new HTML with cached assets
 ASSET_VERSION = "44"
 # The live address. Change this one line if the site moves to its own domain.
-SITE_URL = "https://youngpanda00.github.io/storyds-web/"
+SITE_URL = "https://storyds.com/"
 DEFAULT_SOURCE = ROOT.parent / "Storyds" / "Storyds" / "Features" / "Settings" / "LegalText.swift"
 
 PAGES = [

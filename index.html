@@ -42,7 +42,10 @@
   <link rel="icon" type="image/png" href="assets/favicon.png">
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
   <link rel="preconnect" href="https://sdwhmsjtntwxvchxbtth.supabase.co" crossorigin>
-  <link rel="stylesheet" href="styles.css?v=32">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=44">
   <script>
     // Links shared before stories had their own page used #story=<id> on the home page
     (function () {
@@ -62,7 +65,6 @@
       <nav class="nav" aria-label="Main">
         <a href="./" aria-current="page">Stories</a>
         <a href="about.html">About</a>
-        <a class="btn" href="about.html#download">Get the app</a>
       </nav>
     </div>
   </header>
@@ -73,7 +75,7 @@
       <div class="wrap feed-layout">
         <div class="feed-main">
           <div class="intro">
-            <h1>Your next five minutes, <em>sorted.</em></h1>
+            <h1>Every story, five minutes <em>or less.</em></h1>
             <p>Short, honest stories from the Storyds community.</p>
           </div>
 
@@ -98,14 +100,15 @@
       </div>
     </section>
 
-    <section class="write-band tint">
+    <section class="cta">
       <div class="wrap">
-        <img class="doodle" src="assets/illustrations/WritingDesk.svg" alt="" width="200" height="170">
-        <div>
-          <h2>Got a story in you?</h2>
-          <p>Write it in the Storyds app. Up to 1,200 words, a cover photo if you like, and it shows up here for everyone to read.</p>
-          <a class="btn" href="about.html#write">How writing works</a>
-        </div>
+      <img src="assets/mark.png" alt="" width="62" height="72">
+      <h2>Your next favorite story is a swipe away.</h2>
+      <p>Storyds is coming soon to the App Store for iPhone.</p>
+      <a class="app-store" href="about.html#download" aria-label="Download on the App Store">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.37 12.6c-.02-2.33 1.9-3.45 1.99-3.5-1.09-1.59-2.78-1.8-3.38-1.83-1.44-.15-2.81.85-3.54.85-.73 0-1.86-.83-3.06-.81-1.57.02-3.02.92-3.83 2.33-1.63 2.83-.42 7.02 1.17 9.31.78 1.12 1.7 2.38 2.91 2.34 1.17-.05 1.61-.76 3.02-.76 1.41 0 1.81.76 3.05.73 1.26-.02 2.06-1.14 2.83-2.27.89-1.3 1.26-2.56 1.28-2.62-.03-.01-2.45-.94-2.44-3.77zM14.05 5.76c.64-.78 1.08-1.86.96-2.94-.93.04-2.05.62-2.71 1.39-.6.69-1.12 1.79-.98 2.85 1.04.08 2.09-.53 2.73-1.3z"/></svg>
+        <span><small>Download on the</small><strong>App Store</strong></span>
+      </a>
       </div>
     </section>
   </main>
@@ -125,7 +128,7 @@
   </footer>
   <!--/FOOTER-->
 
-  <script src="main.js?v=32"></script>
-  <script src="stories.js?v=32"></script>
+  <script src="main.js?v=44"></script>
+  <script src="stories.js?v=44"></script>
 </body>
 </html>

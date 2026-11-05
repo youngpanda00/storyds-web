@@ -117,7 +117,10 @@
   <meta name="theme-color" content="#171719" media="(prefers-color-scheme: dark)">
   <link rel="icon" type="image/png" href="assets/favicon.png">
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-  <link rel="stylesheet" href="styles.css?v=32">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=44">
 </head>
 <body class="about">
   <!--HEADER-->
@@ -130,117 +133,80 @@
       <nav class="nav" aria-label="Main">
         <a href="./">Stories</a>
         <a href="about.html" aria-current="page">About</a>
-        <a class="btn" href="about.html#download">Get the app</a>
       </nav>
     </div>
   </header>
   <!--/HEADER-->
 
   <main>
-      <section class="hero">
-        <div class="wrap hero-grid">
-          <div class="hero-text">
-            <h1>Stories for the minutes <em>in between.</em></h1>
-            <p class="lede">Storyds is an iPhone app for short, honest stories. Swipe through a full-screen feed, keep the ones that stay with you, and write your own.</p>
-            <div class="hero-actions">
-              <a class="app-store" href="#download" aria-label="Download on the App Store">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.37 12.6c-.02-2.33 1.9-3.45 1.99-3.5-1.09-1.59-2.78-1.8-3.38-1.83-1.44-.15-2.81.85-3.54.85-.73 0-1.86-.83-3.06-.81-1.57.02-3.02.92-3.83 2.33-1.63 2.83-.42 7.02 1.17 9.31.78 1.12 1.7 2.38 2.91 2.34 1.17-.05 1.61-.76 3.02-.76 1.41 0 1.81.76 3.05.73 1.26-.02 2.06-1.14 2.83-2.27.89-1.3 1.26-2.56 1.28-2.62-.03-.01-2.45-.94-2.44-3.77zM14.05 5.76c.64-.78 1.08-1.86.96-2.94-.93.04-2.05.62-2.71 1.39-.6.69-1.12 1.79-.98 2.85 1.04.08 2.09-.53 2.73-1.3z"/></svg>
-                <span><small>Download on the</small><strong>App Store</strong></span>
-              </a>
-              <a class="btn ghost lg read-now" href="./">Read the stories <span class="arrow" aria-hidden="true">→</span></a>
-            </div>
-            <p class="hero-note">Free. No ads. Coming soon to the App Store.</p>
-          </div>
-
-          <div class="phone" aria-hidden="true">
-            <div class="phone-screen">
-              <p class="phone-meta">Reflective · 1 min read</p>
-              <p class="phone-title">Lost and Found</p>
-              <p class="phone-body">The sign at the bus station said lost property could be claimed until six.</p>
-              <p class="phone-body">It was five fifty-eight when I asked about a red umbrella, and the man behind the counter smiled like he’d been waiting all day for someone to ask.</p>
-              <p class="phone-body phone-extra">“Red,” he said, reaching under the desk. “There are eleven. Which one is yours?”</p>
-              <p class="phone-by"><i></i>mara.writes</p>
-              <div class="phone-rail"><span>♥</span><span>↗</span></div>
-              <p class="phone-hint">Swipe up for the next story</p>
-            </div>
-          </div>
+      <section class="photo-hero">
+        <picture>
+          <source media="(max-width: 700px)" srcset="assets/photos/about-hero-1200.jpg">
+          <img src="assets/photos/about-hero.jpg" alt="" width="2400" height="1600" fetchpriority="high">
+        </picture>
+        <div class="wrap">
+          <span class="app-icon"><img src="assets/mark.png" alt="" width="28" height="33"></span>
+          <h1>Stories for the minutes in between.</h1>
+          <p>Tired of swiping videos? Enjoy a short story during a train ride, a queue, the ten minutes before sleep.</p>
+          <a class="app-store" href="#download" aria-label="Download on the App Store">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.37 12.6c-.02-2.33 1.9-3.45 1.99-3.5-1.09-1.59-2.78-1.8-3.38-1.83-1.44-.15-2.81.85-3.54.85-.73 0-1.86-.83-3.06-.81-1.57.02-3.02.92-3.83 2.33-1.63 2.83-.42 7.02 1.17 9.31.78 1.12 1.7 2.38 2.91 2.34 1.17-.05 1.61-.76 3.02-.76 1.41 0 1.81.76 3.05.73 1.26-.02 2.06-1.14 2.83-2.27.89-1.3 1.26-2.56 1.28-2.62-.03-.01-2.45-.94-2.44-3.77zM14.05 5.76c.64-.78 1.08-1.86.96-2.94-.93.04-2.05.62-2.71 1.39-.6.69-1.12 1.79-.98 2.85 1.04.08 2.09-.53 2.73-1.3z"/></svg>
+            <span><small>Download on the</small><strong>App Store</strong></span>
+          </a>
         </div>
       </section>
 
-      <section id="story" class="tint">
-        <div class="wrap">
-        <div class="story-split">
-          <h2 class="reveal">Why we made Storyds.</h2>
-          <div class="story-text reveal">
-            <p>Most reading happens in the gaps now: a train ride, a queue, the ten minutes before sleep. Those minutes usually go to feeds that never end, and we close the app feeling like we read nothing at all.</p>
-            <p>We wanted those minutes to feel like finishing a book. So we started with one rule: every story has to fit in a single sitting. Up to 1,200 words, a beginning, a middle and an end, and nothing to scroll past.</p>
-            <p>Storyds is where those stories live. Anyone can write one, anyone can read one, and every story gets the same quiet page, with no ads and no follower counts deciding what’s worth reading.</p>
-          </div>
+      <section id="mission" class="mission">
+        <div class="mission-text">
+          <h2>Our Mission.</h2>
+          <p>Not everyone has the time or patience for a whole book, and some of us don’t want to spend the day watching videos either. Sometimes we just want to sit somewhere quiet and read something that starts, matters and ends before our coffee goes cold. Storyds is for those moments: short stories you can read in peace and finish in one go.</p>
         </div>
-        <ul class="facts">
-          <li class="reveal"><b>1,200</b><span>words at most, about a six-minute read.</span></li>
-          <li class="reveal"><b>7</b><span>genres, from Romance and Fantasy to Dark.</span></li>
-          <li class="reveal"><b>0</b><span>ads. Nothing between you and the story.</span></li>
-          <li class="reveal"><b>Free</b><span>to read and to write, here and in the app.</span></li>
-        </ul>
-        </div>
-      </section>
-
-      <section id="how">
-        <div class="wrap">
-        <div class="section-head reveal">
-          <h2>How Storyds works.</h2>
-          <p>Read a story, write your own, keep the ones that stay with you.</p>
-        </div>
-        <div class="steps">
-          <div class="step reveal">
-            <span class="num">01</span>
-            <img class="doodle" src="assets/illustrations/yoga-r.svg" alt="" width="87" height="120">
-            <h3>Read</h3>
-            <p>Swipe up through a full-screen feed of short stories, or pick a genre. Quick reads take about a minute.</p>
+        <div class="mission-art" aria-hidden="true">
+          <div class="feed-phone">
+            <div class="feed-screen">
+              <div class="feed-top"><span class="feed-brand"><img src="assets/mark.png" alt="" width="14" height="16">Storyds</span><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5 5"/></svg></div>
+              <div class="feed-tabs"><b>For you</b><span>Quick read</span><span>Fiction</span><span>Romance</span><span>Slice of Life</span></div>
+              <div class="feed-head">
+                <div>
+                  <p class="feed-author"><i>B</i>Boring Days</p>
+                  <p class="feed-title">The last ordinary day</p>
+                  <p class="feed-meta"><u>Slice of Life</u> · 5 min read</p>
+                </div>
+                <img src="assets/photos/mock-cover.jpg" alt="" width="66" height="66">
+              </div>
+              <p>Nobody remembers the last ordinary day.</p>
+              <p>Not while it’s happening, anyway.</p>
+              <p>You never wake up thinking, Today will be the last time everything feels normal.</p>
+              <p>You wake up because your alarm won’t stop ringing. You check your phone, scroll through messages you don’t intend to answer, and spend a few extra minutes in bed wondering whether you really need your job.</p>
+            </div>
           </div>
-          <div class="step reveal">
-            <span class="num">02</span>
-            <img class="doodle" src="assets/illustrations/book-r.svg" alt="" width="141" height="120">
-            <h3>Write</h3>
-            <p>The Write tab gives you a quiet page and a word counter. Add a cover photo, choose a genre and publish.</p>
-          </div>
-          <div class="step reveal">
-            <span class="num">03</span>
-            <img class="doodle" src="assets/illustrations/LovedHeart.svg" alt="" width="128" height="120">
-            <h3>Keep</h3>
-            <p>Tap the heart to save a story to your Loved list, or share it with a friend as an image.</p>
-          </div>
-        </div>
         </div>
       </section>
 
       <section id="safety" class="tint">
         <div class="wrap">
-        <div class="section-head reveal">
+        <div class="section-head center reveal">
           <h2>Quiet by design.</h2>
-          <p>No ads, no tracking, and zero tolerance for abuse.</p>
         </div>
         <div class="promises">
           <div class="promise reveal">
             <img class="doodle" src="assets/illustrations/Unplugged.svg" alt="" width="90" height="76">
             <h3>No ads</h3>
-            <p>We don’t sell your data or track you across other apps.</p>
-          </div>
-          <div class="promise reveal">
-            <img class="doodle" src="assets/illustrations/TornPage.svg" alt="" width="90" height="76">
-            <h3>Report a story</h3>
-            <p>Tap ••• on any story in the app. Reports are private.</p>
+            <p>Nothing between you and the story. We don’t sell your data or track you across other apps.</p>
           </div>
           <div class="promise reveal">
             <img class="doodle" src="assets/illustrations/QuietBell.svg" alt="" width="90" height="76">
-            <h3>Block a writer</h3>
-            <p>Stop seeing someone’s stories with one tap. They aren’t told.</p>
+            <h3>No like counts</h3>
+            <p>Stories don’t show likes or comments, so there’s no popularity contest and no noise. Just the story.</p>
+          </div>
+          <div class="promise reveal">
+            <img class="doodle" src="assets/illustrations/TornPage.svg" alt="" width="90" height="76">
+            <h3>Safe to read</h3>
+            <p>Report a story or block a writer in one tap. Reports are private, and we review every one.</p>
           </div>
           <div class="promise reveal">
             <img class="doodle" src="assets/illustrations/NoResults.svg" alt="" width="90" height="76">
-            <h3>Your data, your call</h3>
-            <p>Delete your account and everything in it any time.</p>
+            <h3>Your data stays yours</h3>
+            <p>Reading history and drafts stay on your phone. Delete your account and everything in it any time.</p>
           </div>
         </div>
         </div>
@@ -314,6 +280,6 @@
         </div>
   </footer>
 
-  <script src="main.js?v=32"></script>
+  <script src="main.js?v=44"></script>
 </body>
 </html>
